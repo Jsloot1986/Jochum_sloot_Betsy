@@ -160,16 +160,26 @@ def make_records():
             catalog_id = 1
         )
 
-    if UserProduct.select().where(UserProduct.user_id == 1):
+    user_id_1 = User.get(User.first_name == 'Jochum')
+    user_id_2 = User.get(User.first_name == 'Mirjam')
+    user_id_3 = User.get(User.first_name == 'Sabrina')
+    user_id_4 = User.get(User.first_name == 'David')
+
+    product_id_1 = Product.get(Product.product_name == 'Sweater')
+    product_id_2 = Product.get(Product.product_name == 'T-shirt')
+    product_id_3 = Product.get(Product.product_name == 'Monopoly')
+    product_id_4 = Product.get(Product.product_name == 'Cluedo')
+    
+    if UserProduct.select().where(UserProduct.user_id == 1):#tevens geprobeerd met user_id_1 alleen krijg ik een foutmelding
         None
     else:
-        UserProduct.create(user_id= 1, product_id= 1, number=2)
-        UserProduct.create(user_id= 1, product_id= 2, number=5)
-    if UserProduct.select().where(UserProduct.user_id == 2):
+        UserProduct.create(user_id= user_id_1, product_id= product_id_1, number=2)
+        UserProduct.create(user_id= user_id_1, product_id= product_id_2, number=5)
+    if UserProduct.select().where(UserProduct.user_id == 2): #zelfde als bij user.id 1 fout melding is Params: ['Mirjam', 1, 0]
         None
     else:
-        UserProduct.create(user_id= 2, product_id= 3, number=2)
-        UserProduct.create(user_id= 2, product_id= 4, number=4)
+        UserProduct.create(user_id= user_id_2, product_id= product_id_3, number=2)
+        UserProduct.create(user_id= user_id_2, product_id= product_id_4, number=4)
 
     if Product.select().where(Product.product_name == 'Hotel Belagrus'):
         None
@@ -185,10 +195,10 @@ def make_records():
 
     hotel_belagrus_id = Product.get(Product.product_name == "Hotel Belagrus")
 
-    if UserProduct.select().where(UserProduct.user_id == 4 and UserProduct.product_id == hotel_belagrus_id):
+    if UserProduct.select().where(UserProduct.user_id == user_id_4 and UserProduct.product_id == hotel_belagrus_id):
         None
     else:
-        UserProduct.create(user_id= 4, product_id=hotel_belagrus_id, number=100)
+        UserProduct.create(user_id= user_id_4, product_id=hotel_belagrus_id, number=100)
 
     
 
