@@ -1,3 +1,12 @@
+***update***
+
+Na de feedback van Merijn. Heb ik de dingen die gij zij aangepast en getest in de python terminal.
+Het werkt wel alleen als ik bijvoorbeeld bij search dus product 1 wil terug krijgen krijg ik niet de naam maar gewoon product:1 terug.
+
+als ik mijn main.py wil runnen krijg ik nog wel een fout melding. Merijn heeft hem wel werkend gekregen, maar ik snap het gewoon niet waarom het bij mij dan niet werkt. Ik lever het toch weer in want volgens mij werkt het wel, alleen is het misschien voor mij te technisch en krijg ik het daardoor niet aan de praat. Ik hoor het graag.
+
+***update***
+
 Beste Docent,
 
 Ik ben ruim twee weken met deze opdracht bezig geweest.

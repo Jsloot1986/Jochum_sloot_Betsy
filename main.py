@@ -85,7 +85,7 @@ def purchase_product(product_id, buyer_id, quantity, price) -> None:
     except ValueError as ve:
         print(ve)
     except:
-        print(f"No record in user product with values user_id {str(buyer_id)} and product id {str(product_id)}")
+        print(f"No record in user product with values user_id {str(buyer_id)} and product_id {str(product_id)}")
 
 #print(purchase_product(1, 1, 1, 90.1234))
 
@@ -97,29 +97,26 @@ def remove_product(product_name) -> None:
 
 #print(remove_product('T-shirt'))
 
-create_tables()
+# create_tables()
 
 make_records()
 
-chosen_product = search("Sweater")
-for product in chosen_product:
-    print("product "+product.product_name)
+# chosen_product = search("Sweater")
+# for product in chosen_product:
+#     print(f"products: {product} ")
 
-query = list_user_products(1)
-#print(f"the query is: {query}")
-for product in query.dicts():
-    print=("list_user_products "+ product.__repr__())
+# query = list_user_products(1)
+# for product in query:
+#     print=(f"list_user_products {product.__repr__()}")
 
 
-query = list_products_per_tag(1)
-print("the next one is a list of products with tag id 1")
+# query = list_products_per_tag(1)
+# for tag in query:
+#     print(f"list with tag id 1: {tag}")
 
-for tag in query.dicts():
-    print(tag)
+# print("update product in user catlog")
 
-print("update product in user catlog")
+# update_stock(1, "sweater", 30)
+# purchase_product(1, 1, 1, 90.1234)
 
-update_stock(1, "sweater", 30)
-purchase_product(67, 1, 1, 90.1234)
-
-remove_product("Apples")
+# remove_product("Apples")

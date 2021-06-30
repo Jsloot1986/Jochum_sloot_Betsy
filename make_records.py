@@ -12,7 +12,7 @@ def add_tag(product, tag_name):
         product.tags.add([tag])
 
 def make_records():
-    if User.select().where(User.first_name == 'Jochum' and User.last_name == 'Sloot'):
+    if User.select().where(User.first_name == 'Jochum', User.last_name == 'Sloot').exists():
         None
     else:
         User.create(
@@ -22,7 +22,7 @@ def make_records():
             city='Amsterdam',
             country='Nederland'
         )
-    if User.select().where(User.first_name == 'Mirjam' and User.last_name == 'Sloot'):
+    if User.select().where(User.first_name == 'Mirjam', User.last_name == 'Sloot').exists():
         None
     else:
         User.create(
@@ -32,7 +32,7 @@ def make_records():
             city='Oldemarkt',
             country='Nederland'
         )
-    if User.select().where(User.first_name == 'Sabrina' and User.last_name == 'Sloot'):
+    if User.select().where(User.first_name == 'Sabrina', User.last_name == 'Sloot').exists():
         None
     else:
         User.create(
@@ -42,7 +42,7 @@ def make_records():
             city='Antwerpen',
             country='België'
         )
-    if User.select().where(User.first_name == 'David' and User.last_name == 'Hello'):
+    if User.select().where(User.first_name == 'David', User.last_name == 'Hello').exists():
         None
     else:
         User.create(
@@ -53,43 +53,43 @@ def make_records():
             country='Nederland'
         )
 
-    if Tag.select().where(Tag.name == 'Clothes'):
+    if Tag.select().where(Tag.name == 'Clothes').exists():
         None
     else:
         Tag.create(name='Clothes')
-    if Tag.select().where(Tag.name == 'Winter'):
+    if Tag.select().where(Tag.name == 'Winter').exists():
         None
     else:
         Tag.create(name='Winter')
-    if Tag.select().where(Tag.name == 'Domestic'):
+    if Tag.select().where(Tag.name == 'Domestic').exists():
         None
     else:
         Tag.create(name='Domestic')
-    if Tag.select().where(Tag.name == 'Games'):
+    if Tag.select().where(Tag.name == 'Games').exists():
         None
     else:
         Tag.create(name='Games')
-    if Tag.select().where(Tag.name == 'Family'):
+    if Tag.select().where(Tag.name == 'Family').exists():
         None
     else:
         Tag.create(name='Family')
-    if Tag.select().where(Tag.name == 'Fruit'):
+    if Tag.select().where(Tag.name == 'Fruit').exists():
         None
     else:
         Tag.create(name='Fruit')
-    if Tag.select().where(Tag.name == 'Healthy'):
+    if Tag.select().where(Tag.name == 'Healthy').exists():
         None
     else:
         Tag.create(name='Healthy')
-    if Tag.select().where(Tag.name == 'Book'):
+    if Tag.select().where(Tag.name == 'Book').exists():
         None
     else:
         Tag.create(name='Book')
-    if Tag.select().where(Tag.name == 'Thriller'):
+    if Tag.select().where(Tag.name == 'Thriller').exists():
         None
     else:
         Tag.create(name='Thriller')
-    if Product.select().where(Product.product_name == 'Sweater'):
+    if Product.select().where(Product.product_name == 'Sweater').exists():
         None
     else:
         Product.create(
@@ -99,7 +99,7 @@ def make_records():
             tags = [],
             catalog_id= 1
         )
-    if Product.select().where(Product.product_name == 'T-shirt'):
+    if Product.select().where(Product.product_name == 'T-shirt').exists():
         None
     else:
         Product.create(
@@ -109,7 +109,7 @@ def make_records():
             tags = [],
             catalog_id = 1
         )
-    if Product.select().where(Product.product_name == 'Trouser'):
+    if Product.select().where(Product.product_name == 'Trouser').exists():
         None
     else:
         Product.create(
@@ -119,7 +119,7 @@ def make_records():
             tags = [],
             catalog_id = 1
         )
-    if Product.select().where(Product.product_name == 'Monopoly'):
+    if Product.select().where(Product.product_name == 'Monopoly').exists():
         None
     else:
         Product.create(
@@ -129,7 +129,7 @@ def make_records():
             tags = [],
             catalog_id = 1
         )
-    if Product.select().where(Product.product_name == 'Cluedo'):
+    if Product.select().where(Product.product_name == 'Cluedo').exists():
         None
     else:
         Product.create(
@@ -139,7 +139,7 @@ def make_records():
             tags = [],
             catalog_id = 1
         )
-    if Product.select().where(Product.product_name == 'Apples'):
+    if Product.select().where(Product.product_name == 'Apples').exists():
         None
     else:
         Product.create(
@@ -149,7 +149,7 @@ def make_records():
             tags = [],
             catalog_id = 1
         )
-    if Product.select().where(Product.product_name == 'Grapes'):
+    if Product.select().where(Product.product_name == 'Grapes').exists():
         None
     else:
         Product.create(
@@ -170,18 +170,18 @@ def make_records():
     product_id_3 = Product.get(Product.product_name == 'Monopoly')
     product_id_4 = Product.get(Product.product_name == 'Cluedo')
     
-    if UserProduct.select().where(UserProduct.user_id == 1):#tevens geprobeerd met user_id_1 alleen krijg ik een foutmelding
+    if UserProduct.select().where(UserProduct.user_id == user_id_1).exists():#tevens geprobeerd met user_id_1 alleen krijg ik een foutmelding
         None
     else:
         UserProduct.create(user_id= user_id_1, product_id= product_id_1, number=2)
         UserProduct.create(user_id= user_id_1, product_id= product_id_2, number=5)
-    if UserProduct.select().where(UserProduct.user_id == 2): #zelfde als bij user.id 1 fout melding is Params: ['Mirjam', 1, 0]
+    if UserProduct.select().where(UserProduct.user_id == user_id_2).exists(): #zelfde als bij user.id 1 fout melding is Params: ['Mirjam', 1, 0]
         None
     else:
         UserProduct.create(user_id= user_id_2, product_id= product_id_3, number=2)
         UserProduct.create(user_id= user_id_2, product_id= product_id_4, number=4)
 
-    if Product.select().where(Product.product_name == 'Hotel Belagrus'):
+    if Product.select().where(Product.product_name == 'Hotel Belagrus').exists():
         None
     else:
         Product.create(
@@ -195,7 +195,7 @@ def make_records():
 
     hotel_belagrus_id = Product.get(Product.product_name == "Hotel Belagrus")
 
-    if UserProduct.select().where(UserProduct.user_id == user_id_4 and UserProduct.product_id == hotel_belagrus_id):
+    if UserProduct.select().where(UserProduct.user_id == user_id_4, UserProduct.product_id == hotel_belagrus_id).exists():
         None
     else:
         UserProduct.create(user_id= user_id_4, product_id=hotel_belagrus_id, number=100)
