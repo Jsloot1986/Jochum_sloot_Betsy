@@ -22,11 +22,12 @@ class Product(BaseModel):
     description = CharField()
     price_per_unit = DecimalField(8, 2, True)
     tags = ManyToManyField(Tag)
+    number = IntegerField(constraints=[Check('number>=0')])
 
 class UserProduct(BaseModel):
     user_id = ForeignKeyField(User, backref="userproducts")
     product_id = ForeignKeyField(Product, backref="userproducts")
-    number = IntegerField(constraints=[Check('number>=0')])
+    
 
 class Transaction(BaseModel):
     user_id = ForeignKeyField(User, backref='transactions')

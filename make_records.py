@@ -97,6 +97,7 @@ def make_records():
             description = 'Sweater, warm and made from polyeaster',
             price_per_unit=49.999,
             tags = [],
+            number = 10,
             catalog_id= 1
         )
     if Product.select().where(Product.product_name == 'T-shirt').exists():
@@ -107,6 +108,7 @@ def make_records():
             description = 'T-shirt, with Garfield',
             price_per_unit=9.999,
             tags = [],
+            number = 20,
             catalog_id = 1
         )
     if Product.select().where(Product.product_name == 'Trouser').exists():
@@ -117,6 +119,7 @@ def make_records():
             description = 'Trouser, Levi Jeans',
             price_per_unit=39.999,
             tags = [],
+            number = 10,
             catalog_id = 1
         )
     if Product.select().where(Product.product_name == 'Monopoly').exists():
@@ -127,6 +130,7 @@ def make_records():
             description = 'Monopoly the New York edition',
             price_per_unit=29.999,
             tags = [],
+            number = 15,
             catalog_id = 1
         )
     if Product.select().where(Product.product_name == 'Cluedo').exists():
@@ -137,6 +141,7 @@ def make_records():
             description = 'Cluedo the extended version',
             price_per_unit=25.999,
             tags = [],
+            number = 15,
             catalog_id = 1
         )
     if Product.select().where(Product.product_name == 'Apples').exists():
@@ -147,6 +152,7 @@ def make_records():
             description = 'Apples, nice and sweet from Spain',
             price_per_unit=2.995,
             tags = [],
+            number = 100,
             catalog_id = 1
         )
     if Product.select().where(Product.product_name == 'Grapes').exists():
@@ -157,6 +163,7 @@ def make_records():
             description = 'Grapes, tasty from France',
             price_per_unit=1.999,
             tags= [],
+            number = 100,
             catalog_id = 1
         )
 
@@ -173,13 +180,13 @@ def make_records():
     if UserProduct.select().where(UserProduct.user_id == user_id_1).exists():#tevens geprobeerd met user_id_1 alleen krijg ik een foutmelding
         None
     else:
-        UserProduct.create(user_id= user_id_1, product_id= product_id_1, number=2)
-        UserProduct.create(user_id= user_id_1, product_id= product_id_2, number=5)
+        UserProduct.create(user_id= user_id_1, product_id= product_id_1)
+        UserProduct.create(user_id= user_id_1, product_id= product_id_2)
     if UserProduct.select().where(UserProduct.user_id == user_id_2).exists(): #zelfde als bij user.id 1 fout melding is Params: ['Mirjam', 1, 0]
         None
     else:
-        UserProduct.create(user_id= user_id_2, product_id= product_id_3, number=2)
-        UserProduct.create(user_id= user_id_2, product_id= product_id_4, number=4)
+        UserProduct.create(user_id= user_id_2, product_id= product_id_3)
+        UserProduct.create(user_id= user_id_2, product_id= product_id_4)
 
     if Product.select().where(Product.product_name == 'Hotel Belagrus').exists():
         None
@@ -188,8 +195,8 @@ def make_records():
             product_name='Hotel Belagrus',
             description='Thriller/Roman about Hotel Belagrus',
             price_per_unit= 11.50,
-            number= 100,
             tags=[],
+            number= 100,
             catalog_id=1
         )
 
@@ -198,7 +205,7 @@ def make_records():
     if UserProduct.select().where(UserProduct.user_id == user_id_4, UserProduct.product_id == hotel_belagrus_id).exists():
         None
     else:
-        UserProduct.create(user_id= user_id_4, product_id=hotel_belagrus_id, number=100)
+        UserProduct.create(user_id= user_id_4, product_id=hotel_belagrus_id)
 
     
 
