@@ -41,11 +41,13 @@ def list_products_per_tag(tag_id) -> list[Tag.name]:
 def update_stock(user_id, product_name, new_quantity) -> None:
     update_product =[]
     try:
-        record = UserProduct.select().join(Product).where(Product.product_name == product_name and UserProduct.user_id == user_id).dicts()[1]
+        record = UserProduct.select().join(Product).where(Product.product_name == product_name and UserProduct.user_id == user_id)
         user_product = UserProduct.get(UserProduct.user_id == record['user_id'], UserProduct.product_id == record['product_id'])
-        user_product.number = new_quantity
+        product_number = Product.get(Product.product_name == product_name)
+        product_number.number = new_quantity
+        product_number.sace()
         user_product.save()
-        update_product.append([user_product.id, user_product.number])
+        update_product.append([user_product.id, product_number.number])
     except:
         print("No record found")
     return update_product
@@ -56,15 +58,17 @@ def update_stock(user_id, product_name, new_quantity) -> None:
 
 def add_product_to_catalog(user_id, product_name, new_quantity) -> None:
     try:
-        record = UserProduct.select().join(Product).where(Product.product_name == product_name and UserProduct.user_id == user_id).dicts()[0]
+        record = UserProduct.select().join(Product).where(Product.product_name == product_name and UserProduct.user_id == user_id)
         existing_record = "Y"
         return record
     except:
         existing_record = "N"
     if existing_record == "N":
         try:
-            product_id_arr = Product.select(Product.id).where(Product.product_name == product_name).dicts()[0]
-            UserProduct.create(user_id=user_id, product_id=product_id_arr['id'], number=new_quantity)
+            product_id_arr = Product.select(Product.id).where(Product.product_name == product_name)
+            UserProduct.create(user_id=user_id, product_id=product_id_arr['id'])
+            product_id_arr.number = new_quantity
+            product_id_arr.save()
             print(product_id_arr)
         except:
             print("Either the product or the user_id doesn't exist yet")
@@ -75,11 +79,13 @@ def add_product_to_catalog(user_id, product_name, new_quantity) -> None:
 def purchase_product(product_id, buyer_id, quantity, price) -> None:
     try:
         user_product = UserProduct.get(UserProduct.user_id == buyer_id and UserProduct.product_id == product_id)
-        if user_product.number >= quantity:
+        product_number = Product.get(Product.product_name == product_id)
+        if product_number.number >= quantity:
             Transaction.create(user_id=buyer_id, product_id=product_id, number=quantity, sell_date=datetime.now(), sell_price=price)
-            user_product.number = user_product.number-quantity
+            product_number.number = product_number.number-quantity
             user_product.save()
-            print(user_product)
+            product_number.save()
+            print(user_product, product_number)
         else:
             raise ValueError("not enough goods in stock")
     except ValueError as ve:
@@ -97,26 +103,26 @@ def remove_product(product_name) -> None:
 
 #print(remove_product('T-shirt'))
 
-# create_tables()
+create_tables()
 
 make_records()
 
-# chosen_product = search("Sweater")
-# for product in chosen_product:
-#     print(f"products: {product} ")
+chosen_product = search("Sweater")
+for product in chosen_product:
+    print(f"products: {product} ")
 
-# query = list_user_products(1)
-# for product in query:
-#     print=(f"list_user_products {product.__repr__()}")
+query = list_user_products(1)
+for product in query:
+    print=(f"list_user_products {product.__repr__()}")
 
 
-# query = list_products_per_tag(1)
-# for tag in query:
-#     print(f"list with tag id 1: {tag}")
+query = list_products_per_tag(1)
+for tag in query:
+    print(f"list with tag id 1: {tag}")
 
-# print("update product in user catlog")
+print("update product in user catlog")
 
-# update_stock(1, "sweater", 30)
-# purchase_product(1, 1, 1, 90.1234)
+update_stock(1, "sweater", 30)
+purchase_product(1, 1, 1, 90.1234)
 
-# remove_product("Apples")
+remove_product("Apples")
