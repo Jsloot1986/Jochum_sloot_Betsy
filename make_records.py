@@ -4,12 +4,6 @@ from models import *
 
 db = SqliteDatabase('betsy_workshop.db')
 
-def add_tag(product, tag_name):
-    tag = Tag.get(Tag.name == tag_name)
-    if tag in product.tags:
-        None
-    else:
-        product.tags.add([tag])
 
 def make_records():
     if User.select().where(User.first_name == 'Jochum', User.last_name == 'Sloot').exists():
@@ -81,14 +75,20 @@ def make_records():
         None
     else:
         Tag.create(name='Healthy')
-    if Tag.select().where(Tag.name == 'Book').exists():
+    if Tag.select().where(Tag.name == 'Books').exists():
         None
     else:
-        Tag.create(name='Book')
+        Tag.create(name='Books')
     if Tag.select().where(Tag.name == 'Thriller').exists():
         None
     else:
         Tag.create(name='Thriller')
+
+    user_id_1 = User.get(User.first_name == 'Jochum')
+    user_id_2 = User.get(User.first_name == 'Mirjam')
+    user_id_3 = User.get(User.first_name == 'Sabrina')
+    user_id_4 = User.get(User.first_name == 'David')
+
     if Product.select().where(Product.product_name == 'Sweater').exists():
         None
     else:
@@ -96,9 +96,8 @@ def make_records():
             product_name = 'Sweater',
             description = 'Sweater, warm and made from polyeaster',
             price_per_unit=49.999,
-            tags = [],
-            number = 10,
-            catalog_id= 1
+            owner = user_id_1,
+            stock = 10
         )
     if Product.select().where(Product.product_name == 'T-shirt').exists():
         None
@@ -107,9 +106,8 @@ def make_records():
             product_name = 'T-shirt',
             description = 'T-shirt, with Garfield',
             price_per_unit=9.999,
-            tags = [],
-            number = 20,
-            catalog_id = 1
+            owner = user_id_1,
+            stock = 20
         )
     if Product.select().where(Product.product_name == 'Trouser').exists():
         None
@@ -118,9 +116,8 @@ def make_records():
             product_name = 'Trouser',
             description = 'Trouser, Levi Jeans',
             price_per_unit=39.999,
-            tags = [],
-            number = 10,
-            catalog_id = 1
+            owner = user_id_1,
+            stock = 10
         )
     if Product.select().where(Product.product_name == 'Monopoly').exists():
         None
@@ -129,9 +126,8 @@ def make_records():
             product_name = 'Monopoly',
             description = 'Monopoly the New York edition',
             price_per_unit=29.999,
-            tags = [],
-            number = 15,
-            catalog_id = 1
+            owner=user_id_2,
+            stock = 15
         )
     if Product.select().where(Product.product_name == 'Cluedo').exists():
         None
@@ -140,9 +136,8 @@ def make_records():
             product_name = 'Cluedo',
             description = 'Cluedo the extended version',
             price_per_unit=25.999,
-            tags = [],
-            number = 15,
-            catalog_id = 1
+            owner = user_id_2,
+            stock = 15
         )
     if Product.select().where(Product.product_name == 'Apples').exists():
         None
@@ -151,9 +146,8 @@ def make_records():
             product_name = 'Apples',
             description = 'Apples, nice and sweet from Spain',
             price_per_unit=2.995,
-            tags = [],
-            number = 100,
-            catalog_id = 1
+            owner = user_id_3,
+            stock = 100
         )
     if Product.select().where(Product.product_name == 'Grapes').exists():
         None
@@ -162,31 +156,56 @@ def make_records():
             product_name = 'Grapes',
             description = 'Grapes, tasty from France',
             price_per_unit=1.999,
-            tags= [],
-            number = 100,
-            catalog_id = 1
+            owner= user_id_3,
+            stock = 100
         )
 
-    user_id_1 = User.get(User.first_name == 'Jochum')
-    user_id_2 = User.get(User.first_name == 'Mirjam')
-    user_id_3 = User.get(User.first_name == 'Sabrina')
-    user_id_4 = User.get(User.first_name == 'David')
-
-    product_id_1 = Product.get(Product.product_name == 'Sweater')
-    product_id_2 = Product.get(Product.product_name == 'T-shirt')
-    product_id_3 = Product.get(Product.product_name == 'Monopoly')
-    product_id_4 = Product.get(Product.product_name == 'Cluedo')
     
-    if UserProduct.select().where(UserProduct.user_id == user_id_1).exists():#tevens geprobeerd met user_id_1 alleen krijg ik een foutmelding
+
+    product_id_1 = Product.select().where(Product.product_name == 'Sweater')
+    
+    product_id_2 = Product.get(Product.product_name == 'T-shirt')
+    
+    product_id_4 = Product.get(Product.product_name == 'Monopoly')
+    
+    product_id_5 = Product.get(Product.product_name == 'Cluedo')
+    
+
+    
+    clothes = Tag.select().where(Tag.name == 'Clothes')
+    domestic = Tag.select().where(Tag.name == 'Domestic')
+    winter = Tag.select().where(Tag.name == 'Winter')
+    games = Tag.select().where(Tag.name == 'Games')
+    family = Tag.select().where(Tag.name == 'Family')
+    
+    if ProductTag.select().where(ProductTag.product == 'Sweater').exists():
         None
     else:
-        UserProduct.create(user_id= user_id_1, product_id= product_id_1)
-        UserProduct.create(user_id= user_id_1, product_id= product_id_2)
-    if UserProduct.select().where(UserProduct.user_id == user_id_2).exists(): #zelfde als bij user.id 1 fout melding is Params: ['Mirjam', 1, 0]
-        None
+        ProductTag.create(
+            product = product_id_1,
+            tags = clothes
+        )
+    if ProductTag.select().where(ProductTag.product == 'T-shirt').exists():
+        None 
     else:
-        UserProduct.create(user_id= user_id_2, product_id= product_id_3)
-        UserProduct.create(user_id= user_id_2, product_id= product_id_4)
+        ProductTag.create(
+            product = product_id_2,
+            tags = clothes
+        )
+    if ProductTag.select().where(ProductTag.product == 'Monopoly').exists():
+        None 
+    else:
+        ProductTag.create(
+            product = product_id_4,
+            tags = games
+        )
+    if ProductTag.select().where(ProductTag.product == 'Cluedo').exists():
+        None 
+    else:
+        ProductTag.create(
+            product = product_id_5,
+            tags = games
+        )
 
     if Product.select().where(Product.product_name == 'Hotel Belagrus').exists():
         None
@@ -195,17 +214,18 @@ def make_records():
             product_name='Hotel Belagrus',
             description='Thriller/Roman about Hotel Belagrus',
             price_per_unit= 11.50,
-            tags=[],
-            number= 100,
-            catalog_id=1
+            owner = user_id_4,
+            stock= 100,
         )
 
     hotel_belagrus_id = Product.get(Product.product_name == "Hotel Belagrus")
+    books = Tag.get(Tag.name == 'Books')
+    thriller = Tag.get(Tag.name == 'Thriller')
 
-    if UserProduct.select().where(UserProduct.user_id == user_id_4, UserProduct.product_id == hotel_belagrus_id).exists():
+    if ProductTag.select().where(ProductTag.product == hotel_belagrus_id).exists():
         None
     else:
-        UserProduct.create(user_id= user_id_4, product_id=hotel_belagrus_id)
+        ProductTag.create(product = hotel_belagrus_id, tags = books)
 
     
 
