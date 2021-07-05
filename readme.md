@@ -1,3 +1,10 @@
+***Update***
+Na feedback van Stefanie het werkend gekregen.
+Het enige is dat ik maar 1 tag kan toewijzen aan een product.
+Ik heb van alles geprobeerd om dit werkend te krijgen, helaas niet gelukt.
+Mocht dit toch moeten...zou ik graag hier een tip/uitleg over ontvangen in de feedback video.
+Ik geloof dat ik ook aan alle requirments heb voldaan.
+
 ***update***
 
 Na de feedback van Merijn. Heb ik de dingen die gij zij aangepast en getest in de python terminal.

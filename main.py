@@ -7,122 +7,91 @@ from make_records import *
 from models import *
 
 
-def search(term) -> list[Product]:
+def search(term):
     search_list = []
     query = Product.select().where(Product.product_name == term)
     for item in query:
         search_list.append(item.product_name)
-    return search_list
+    return f'You searched for {term} and this is the list {search_list}'
 
 #print(search('Sweater'))
 
-def list_user_products(user_id) -> list[UserProduct]:
+def list_user_products(user_id):
     user_products = []
-    product_list = Product.select().join(UserProduct).join(User).where(User.id == user_id)
+    product_list = Product.select().join(User).where(User.id == user_id)
 
     for product in product_list:
         user_products.append(product.product_name)
-    return user_products
+    return f'The products from user {user_id} are: {user_products}'
 
 #print(list_user_products(1))
 
 
-def list_products_per_tag(tag_id) -> list[Tag.name]:
-    tag_list = []
-    query = ProductTag.select().join(Product).switch(ProductTag).join(Tag).where(Tag.id == tag_id)
+def list_products_per_tag(tag_id):
+    tag_list= []
+    tag_name = []
+    producttags = (Product.select().join(ProductTag).join(Tag).where(Tag.id == tag_id))
+    tags = (Tag.select().where(Tag.id == tag_id))
 
-    for tag in query:
-        tag_list.append(tag)
-    return tag_list
+    for tag in producttags:
+        tag_list.append(tag.product_name)
+    for tag in tags:
+        tag_name.append(tag.name)
+    return f'The product_list from tag_id {tag_id} with tag {tag_name} is: {tag_list}'
 
 #print(list_products_per_tag(1))
 
 
-def update_stock(user_id, product_name, new_quantity) -> None:
-    update_product =[]
-    try:
-        record = UserProduct.select().join(Product).where(Product.product_name == product_name and UserProduct.user_id == user_id)
-        user_product = UserProduct.get(UserProduct.user_id == record['user_id'], UserProduct.product_id == record['product_id'])
-        product_number = Product.get(Product.product_name == product_name)
-        product_number.number = new_quantity
-        product_number.sace()
-        user_product.save()
-        update_product.append([user_product.id, product_number.number])
-    except:
-        print("No record found")
-    return update_product
+def add_product_to_catalog(user_id, product_name, price, new_quantity):
+    new_product = Product.create(
+        product_name=product_name,
+        description= product_name,
+        price_per_unit= price,
+        owner= user_id,
+        stock = new_quantity 
+    )
+    return f'The new product us added {new_product.product_name}'
+
+def update_stock(product_id, new_quantity):
+    product = Product.get_by_id(product_id)
+    product.stock = new_quantity
+    product.save()
+    return f'the follow product: {product.product_name} is updated with {new_quantity}'
+    
 
 #print(update_stock(1, 'sweater', 10))
 
-
-
-def add_product_to_catalog(user_id, product_name, new_quantity) -> None:
-    try:
-        record = UserProduct.select().join(Product).where(Product.product_name == product_name and UserProduct.user_id == user_id)
-        existing_record = "Y"
-        return record
-    except:
-        existing_record = "N"
-    if existing_record == "N":
-        try:
-            product_id_arr = Product.select(Product.id).where(Product.product_name == product_name)
-            UserProduct.create(user_id=user_id, product_id=product_id_arr['id'])
-            product_id_arr.number = new_quantity
-            product_id_arr.save()
-            print(product_id_arr)
-        except:
-            print("Either the product or the user_id doesn't exist yet")
-
-#print(add_product_to_catalog(2, 'orange', 10))
-
     
-def purchase_product(product_id, buyer_id, quantity, price) -> None:
-    try:
-        user_product = UserProduct.get(UserProduct.user_id == buyer_id and UserProduct.product_id == product_id)
-        product_number = Product.get(Product.product_name == product_id)
-        if product_number.number >= quantity:
-            Transaction.create(user_id=buyer_id, product_id=product_id, number=quantity, sell_date=datetime.now(), sell_price=price)
-            product_number.number = product_number.number-quantity
-            user_product.save()
-            product_number.save()
-            print(user_product, product_number)
-        else:
-            raise ValueError("not enough goods in stock")
-    except ValueError as ve:
-        print(ve)
-    except:
-        print(f"No record in user product with values user_id {str(buyer_id)} and product_id {str(product_id)}")
+def purchase_product(product_id, buyer_id, quantity, price):
+    product = Product.get_by_id(product_id)
+    new_quantity = product.stock - quantity
+    if product.stock < quantity:
+        raise ValueError("Amount not available in stock")
+    Transaction.create(buyer=buyer_id, product_bought=product_id, amount_bought=quantity, sell_date=datetime.now(), sell_price=price)
+    update_stock(product_id, new_quantity)
+    return f'The follow product is sold {product.product_name} and update in stock with {new_quantity}'
 
 #print(purchase_product(1, 1, 1, 90.1234))
 
 
-def remove_product(product_name) -> None:
+def remove_product(product_name):
     product = Product.get(Product.product_name == product_name)
-    print(product)
     product.delete_instance()
+    print(f'the product {product_name} with product_id {product} is removed')
 
 #print(remove_product('T-shirt'))
 
-create_tables()
+if __name__ == '__main__':
+    create_tables()
+    make_records()
 
-make_records()
+    print(search('Sweater'))
+    print(list_user_products(1))
 
-chosen_product = search("Sweater")
-for product in chosen_product:
-    print(f"products: {product} ")
+    print(list_products_per_tag(1))
 
-query = list_user_products(1)
-for product in query:
-    print=(f"list_user_products {product.__repr__()}")
+    print(add_product_to_catalog(1, 'T-shirt NY', 15.999, 20))
+    print(update_stock(1, 30))
+    print(purchase_product(1, 4, 3, 155))
 
-
-query = list_products_per_tag(1)
-for tag in query:
-    print(f"list with tag id 1: {tag}")
-
-print("update product in user catlog")
-
-update_stock(1, "sweater", 30)
-purchase_product(1, 1, 1, 90.1234)
-
-remove_product("Apples")
+    print(remove_product("Apples"))
