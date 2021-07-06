@@ -95,7 +95,7 @@ def make_records():
         Product.create(
             product_name = 'Sweater',
             description = 'Sweater, warm and made from polyeaster',
-            price_per_unit=49.999,
+            price_per_unit=49.99,
             owner = user_id_1,
             stock = 10
         )
@@ -105,7 +105,7 @@ def make_records():
         Product.create(
             product_name = 'T-shirt',
             description = 'T-shirt, with Garfield',
-            price_per_unit=9.999,
+            price_per_unit=9.99,
             owner = user_id_1,
             stock = 20
         )
@@ -115,7 +115,7 @@ def make_records():
         Product.create(
             product_name = 'Trouser',
             description = 'Trouser, Levi Jeans',
-            price_per_unit=39.999,
+            price_per_unit=39.99,
             owner = user_id_1,
             stock = 10
         )
@@ -125,7 +125,7 @@ def make_records():
         Product.create(
             product_name = 'Monopoly',
             description = 'Monopoly the New York edition',
-            price_per_unit=29.999,
+            price_per_unit=29.99,
             owner=user_id_2,
             stock = 15
         )
@@ -135,7 +135,7 @@ def make_records():
         Product.create(
             product_name = 'Cluedo',
             description = 'Cluedo the extended version',
-            price_per_unit=25.999,
+            price_per_unit=25.99,
             owner = user_id_2,
             stock = 15
         )
@@ -145,7 +145,7 @@ def make_records():
         Product.create(
             product_name = 'Apples',
             description = 'Apples, nice and sweet from Spain',
-            price_per_unit=2.995,
+            price_per_unit=2.99,
             owner = user_id_3,
             stock = 100
         )
@@ -155,7 +155,7 @@ def make_records():
         Product.create(
             product_name = 'Grapes',
             description = 'Grapes, tasty from France',
-            price_per_unit=1.999,
+            price_per_unit=1.99,
             owner= user_id_3,
             stock = 100
         )
