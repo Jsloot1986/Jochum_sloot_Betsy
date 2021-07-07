@@ -1,3 +1,8 @@
+**UPdate**
+Everything is working and changed the last things.
+- main.py return a list not a string
+- make_records changed if/else to if not.
+
 ***Update***
 Na feedback van Stefanie het werkend gekregen.
 Het enige is dat ik maar 1 tag kan toewijzen aan een product.
