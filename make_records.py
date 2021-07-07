@@ -6,9 +6,7 @@ db = SqliteDatabase('betsy_workshop.db')
 
 
 def make_records():
-    if User.select().where(User.first_name == 'Jochum', User.last_name == 'Sloot').exists():
-        None
-    else:
+    if not User.select().where(User.first_name == 'Jochum', User.last_name == 'Sloot'):
         User.create(
             first_name='Jochum',
             last_name='Sloot',
@@ -16,9 +14,7 @@ def make_records():
             city='Amsterdam',
             country='Nederland'
         )
-    if User.select().where(User.first_name == 'Mirjam', User.last_name == 'Sloot').exists():
-        None
-    else:
+    if not User.select().where(User.first_name == 'Mirjam', User.last_name == 'Sloot'):
         User.create(
             first_name='Mirjam',
             last_name='Sloot',
@@ -26,9 +22,7 @@ def make_records():
             city='Oldemarkt',
             country='Nederland'
         )
-    if User.select().where(User.first_name == 'Sabrina', User.last_name == 'Sloot').exists():
-        None
-    else:
+    if not User.select().where(User.first_name == 'Sabrina', User.last_name == 'Sloot'):
         User.create(
             first_name='Sabrina',
             last_name='Sloot',
@@ -36,9 +30,7 @@ def make_records():
             city='Antwerpen',
             country='België'
         )
-    if User.select().where(User.first_name == 'David', User.last_name == 'Hello').exists():
-        None
-    else:
+    if  not User.select().where(User.first_name == 'David', User.last_name == 'Hello'):
         User.create(
             first_name='David',
             last_name='Hello',
@@ -47,41 +39,23 @@ def make_records():
             country='Nederland'
         )
 
-    if Tag.select().where(Tag.name == 'Clothes').exists():
-        None
-    else:
+    if not Tag.select().where(Tag.name == 'Clothes'):
         Tag.create(name='Clothes')
-    if Tag.select().where(Tag.name == 'Winter').exists():
-        None
-    else:
+    if not Tag.select().where(Tag.name == 'Winter'):
         Tag.create(name='Winter')
-    if Tag.select().where(Tag.name == 'Domestic').exists():
-        None
-    else:
+    if not Tag.select().where(Tag.name == 'Domestic'):
         Tag.create(name='Domestic')
-    if Tag.select().where(Tag.name == 'Games').exists():
-        None
-    else:
+    if not Tag.select().where(Tag.name == 'Games'):
         Tag.create(name='Games')
-    if Tag.select().where(Tag.name == 'Family').exists():
-        None
-    else:
+    if not Tag.select().where(Tag.name == 'Family'):
         Tag.create(name='Family')
-    if Tag.select().where(Tag.name == 'Fruit').exists():
-        None
-    else:
+    if not Tag.select().where(Tag.name == 'Fruit'):
         Tag.create(name='Fruit')
-    if Tag.select().where(Tag.name == 'Healthy').exists():
-        None
-    else:
+    if not Tag.select().where(Tag.name == 'Healthy'):
         Tag.create(name='Healthy')
-    if Tag.select().where(Tag.name == 'Books').exists():
-        None
-    else:
+    if not Tag.select().where(Tag.name == 'Books'):
         Tag.create(name='Books')
-    if Tag.select().where(Tag.name == 'Thriller').exists():
-        None
-    else:
+    if not Tag.select().where(Tag.name == 'Thriller'):
         Tag.create(name='Thriller')
 
     user_id_1 = User.get(User.first_name == 'Jochum')
@@ -89,9 +63,7 @@ def make_records():
     user_id_3 = User.get(User.first_name == 'Sabrina')
     user_id_4 = User.get(User.first_name == 'David')
 
-    if Product.select().where(Product.product_name == 'Sweater').exists():
-        None
-    else:
+    if not Product.select().where(Product.product_name == 'Sweater'):
         Product.create(
             product_name = 'Sweater',
             description = 'Sweater, warm and made from polyeaster',
@@ -99,9 +71,7 @@ def make_records():
             owner = user_id_1,
             stock = 10
         )
-    if Product.select().where(Product.product_name == 'T-shirt').exists():
-        None
-    else:
+    if not Product.select().where(Product.product_name == 'T-shirt'):
         Product.create(
             product_name = 'T-shirt',
             description = 'T-shirt, with Garfield',
@@ -109,9 +79,7 @@ def make_records():
             owner = user_id_1,
             stock = 20
         )
-    if Product.select().where(Product.product_name == 'Trouser').exists():
-        None
-    else:
+    if not Product.select().where(Product.product_name == 'Trouser'):
         Product.create(
             product_name = 'Trouser',
             description = 'Trouser, Levi Jeans',
@@ -119,9 +87,7 @@ def make_records():
             owner = user_id_1,
             stock = 10
         )
-    if Product.select().where(Product.product_name == 'Monopoly').exists():
-        None
-    else:
+    if not Product.select().where(Product.product_name == 'Monopoly'):
         Product.create(
             product_name = 'Monopoly',
             description = 'Monopoly the New York edition',
@@ -129,9 +95,7 @@ def make_records():
             owner=user_id_2,
             stock = 15
         )
-    if Product.select().where(Product.product_name == 'Cluedo').exists():
-        None
-    else:
+    if not Product.select().where(Product.product_name == 'Cluedo'):
         Product.create(
             product_name = 'Cluedo',
             description = 'Cluedo the extended version',
@@ -139,9 +103,7 @@ def make_records():
             owner = user_id_2,
             stock = 15
         )
-    if Product.select().where(Product.product_name == 'Apples').exists():
-        None
-    else:
+    if not Product.select().where(Product.product_name == 'Apples'):
         Product.create(
             product_name = 'Apples',
             description = 'Apples, nice and sweet from Spain',
@@ -149,9 +111,7 @@ def make_records():
             owner = user_id_3,
             stock = 100
         )
-    if Product.select().where(Product.product_name == 'Grapes').exists():
-        None
-    else:
+    if not Product.select().where(Product.product_name == 'Grapes'):
         Product.create(
             product_name = 'Grapes',
             description = 'Grapes, tasty from France',
@@ -178,38 +138,28 @@ def make_records():
     games = Tag.select().where(Tag.name == 'Games')
     family = Tag.select().where(Tag.name == 'Family')
     
-    if ProductTag.select().where(ProductTag.product == 'Sweater').exists():
-        None
-    else:
+    if not ProductTag.select().where(ProductTag.product == 'Sweater'):
         ProductTag.create(
             product = product_id_1,
             tags = clothes
         )
-    if ProductTag.select().where(ProductTag.product == 'T-shirt').exists():
-        None 
-    else:
+    if not ProductTag.select().where(ProductTag.product == 'T-shirt'):
         ProductTag.create(
             product = product_id_2,
             tags = clothes
         )
-    if ProductTag.select().where(ProductTag.product == 'Monopoly').exists():
-        None 
-    else:
+    if not ProductTag.select().where(ProductTag.product == 'Monopoly'):
         ProductTag.create(
             product = product_id_4,
             tags = games
         )
-    if ProductTag.select().where(ProductTag.product == 'Cluedo').exists():
-        None 
-    else:
+    if not ProductTag.select().where(ProductTag.product == 'Cluedo'):
         ProductTag.create(
             product = product_id_5,
             tags = games
         )
 
-    if Product.select().where(Product.product_name == 'Hotel Belagrus').exists():
-        None
-    else:
+    if not Product.select().where(Product.product_name == 'Hotel Belagrus'):
         Product.create(
             product_name='Hotel Belagrus',
             description='Thriller/Roman about Hotel Belagrus',
@@ -222,9 +172,7 @@ def make_records():
     books = Tag.get(Tag.name == 'Books')
     thriller = Tag.get(Tag.name == 'Thriller')
 
-    if ProductTag.select().where(ProductTag.product == hotel_belagrus_id).exists():
-        None
-    else:
+    if not ProductTag.select().where(ProductTag.product == hotel_belagrus_id):
         ProductTag.create(product = hotel_belagrus_id, tags = books)
 
     
